@@ -1,20 +1,14 @@
 from typing import Dict, List
 from django.shortcuts import render
 from .forms import EmailForm
-from django.core.mail import send_mail
-from django.conf import settings
 from .utils.gift import play_game
 
 def sendMail(request):
-
-    print(42)
     # create a variable to keep track of the form
     messageSent = False
 
     # check if form has been submitted
     if request.method == 'POST':
-        print(43)
-
         form = EmailForm(request.POST)
         members = get_members(request.POST)
 
