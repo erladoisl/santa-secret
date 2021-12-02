@@ -1,0 +1,101 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <title>Тайный Санта</title>
+  </head>
+  <body class="bg-light">
+    <div class="container">
+      <main>
+        {% if messageSent %}
+          <div class="py-5 text-center">
+            <h2>Тайный Санта</h2>
+
+            <h3><strong>Игра начата</strong></h3>
+            
+            <p class="lead">Каждому участнику было отправлено сообщение на почту с информацией,  кому нужно дарить подарок</p>
+            
+            <p class="lead">Загляните на почту, чтобы узнать своего подопечного</p>
+          </div>
+        {% else %}
+          <div class="py-5 text-center">
+            <h2>Тайный Санта</h2>
+
+            <h3><strong>Шаг 1.</strong></h3>
+          </div>
+          <div class="row g-5">
+            <div class="col-md-7 col-lg-12">
+              <h4 class="mb-3">Добавление участников</h4>
+              После добавления всех участников, нажмите на кнопку "Начать игру"
+              <form class="needs-validation" method="post">
+                {% csrf_token %}
+                <div class="row g-3">
+                    <div id="all_members">
+                      <div class="member">
+                        <h4 class="w-50 d-flex justify-content-between align-items-center mb-3">
+                          <span class="text-primary">Участник 1:</span>
+                          <span class="badge bg-primary rounded-pill delete"></span>
+                        </h4>
+                        
+                        <div class="col-sm-6">
+                          <label for="id_firstName0" class="form-label firstNameLabel">Уникальное имя участника</label>
+                          <input type="text" class="form-control firstName" id="id_firstName0" name='firstName0' placeholder="" value="" required="">
+                          <div class="invalid-feedback">
+                            Имя участника - обязательное поле.
+                          </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <label for="id_email0" class="form-label emailLabel">Email</label>
+                          <input type="email" class="form-control email" id="id_email0" name='email0' placeholder="" value="" required="">
+                          <div class="invalid-feedback">
+                            Email участника - обязательное поле.
+                          </div>
+                        </div>
+                        <hr class="my-4 col-sm-6">
+                      </div>
+                    </div>
+                  <button class="w-25 btn btn-primary btn-lg" type="button" onclick="add_member_form()">+</button>
+
+                  <input
+                  type="submit"
+                  class="btn btn-secondary"
+                  style="width: 100%"
+                  value="Начать игру"
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
+        {% endif %}
+      </main>
+    </div>
+  </body>
+  <script>
+    function add_member_form(){
+      members = document.getElementsByClassName('member')
+      count = members.length
+      new_member = members[0].cloneNode(true)
+      new_member.getElementsByClassName('text-primary')[0].innerText = 'Участник ' + (count + 1)
+      new_member.getElementsByClassName('firstNameLabel')[0].for = 'id_firstName' + count
+      new_member.getElementsByClassName('emailLabel')[0].for = 'id_email' + count
+      new_member.getElementsByClassName('firstName')[0].id = 'id_firstName' + count
+      new_member.getElementsByClassName('email')[0].id = 'id_email' + count
+      new_member.getElementsByClassName('firstName')[0].name = 'firstName' + count
+      new_member.getElementsByClassName('email')[0].name = 'email' + count
+      new_member.getElementsByClassName('firstName')[0].value = ''
+      new_member.getElementsByClassName('email')[0].value = ''
+
+      document.getElementById('all_members').appendChild(new_member)
+    }
+  </script>
+</html>

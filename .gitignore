@@ -1,0 +1,7 @@
+db.sqlite3
+mailer/__pycache__/
+mailer/migrations/__pycache__/
+send_mail/__pycache__/
+mailer/utils/__pycache__/
+.gitignore
+send_mail/settings.py
