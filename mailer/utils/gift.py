@@ -25,5 +25,5 @@ def play_game(members = participants):
 
     for participant in distributed:
         message = f'{participant["name"]}, вашим подопечным выбран {participant["gift to"]}. '
-        print(message)
+        #print(message)
         sent_message(subject, message, participant['email'])
